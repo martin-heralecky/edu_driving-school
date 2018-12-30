@@ -14,6 +14,8 @@ public class Activator implements BundleActivator {
     @Override
     public void start(BundleContext context) throws Exception {
         LOG.info("Starting integration bundle.");
+
+        DAOManager.setBundleContext(context);
     }
 
     @Override
