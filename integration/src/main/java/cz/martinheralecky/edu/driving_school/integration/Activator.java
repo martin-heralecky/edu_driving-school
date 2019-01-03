@@ -1,6 +1,5 @@
 package cz.martinheralecky.edu.driving_school.integration;
 
-import cz.martinheralecky.edu.driving_school.integration.impl.VehicleDAOMap;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
@@ -15,11 +14,6 @@ public class Activator implements BundleActivator {
     @Override
     public void start(BundleContext context) throws Exception {
         LOG.info("Starting integration bundle.");
-
-        DAOManager.setBundleContext(context);
-
-        // register default DAO implementations
-        context.registerService(VehicleDAO.class, new VehicleDAOMap(), null);
     }
 
     @Override
