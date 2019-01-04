@@ -35,6 +35,7 @@
         <module>model</module>
         <module>integration</module>
         <module>business</module>
+        <module>rich-client</module>
     </modules>
 
     <build>

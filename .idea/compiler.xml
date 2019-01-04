@@ -9,6 +9,7 @@
         <module name="business" />
         <module name="integration" />
         <module name="model" />
+        <module name="rich-client" />
         <module name="utils" />
       </profile>
     </annotationProcessing>
