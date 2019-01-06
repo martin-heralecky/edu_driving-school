@@ -8,12 +8,22 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.osgi.framework.FrameworkUtil;
 
 /**
  * The main window of the application.
  */
 class MainWindow extends Stage {
+    /**
+     * The facade service.
+     */
+    private Facade facade;
+
     MainWindow() {
+        var bundleContext = FrameworkUtil.getBundle(MainWindow.class).getBundleContext();
+        var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
+        facade = bundleContext.getService(facadeServiceRef);
+
         setTitle(Messages.app_name.getCapitalized());
 
         var root = new VBox(createMenuBar());
