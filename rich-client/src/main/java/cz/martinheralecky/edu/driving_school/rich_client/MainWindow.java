@@ -1,6 +1,7 @@
 package cz.martinheralecky.edu.driving_school.rich_client;
 
 import cz.martinheralecky.edu.driving_school.business.Facade;
+import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
 import cz.martinheralecky.edu.driving_school.model.Vehicle;
 import cz.martinheralecky.edu.driving_school.rich_client.controller.QuitAction;
@@ -29,7 +30,7 @@ class MainWindow extends Stage {
 
         setTitle(Messages.app_name.getCapitalized());
 
-        var root = new VBox(createMenuBar(), createVehiclesPane(), createTeachersPane());
+        var root = new VBox(createMenuBar(), createVehiclesPane(), createTeachersPane(), createStudentsPane());
 
         var scene = new Scene(root, 800, 600);
         setScene(scene);
@@ -76,6 +77,22 @@ class MainWindow extends Stage {
             .addColumn(Messages.teacher_phoneNumber.getCapitalized(), "phoneNumber")
             .addColumn(Messages.teacher_birthDate.getCapitalized(), "birthDate")
             .setRecordsSupplier(facade::getTeachers)
+            .build();
+    }
+
+    /**
+     * Creates a pane for students.
+     */
+    private Node createStudentsPane() {
+        return new EntityPane.Builder<Student>()
+            .setTitle(Messages.students.getCapitalized())
+            .addColumn(Messages.student_id.getCapitalized(), "ID")
+            .addColumn(Messages.student_firstName.getCapitalized(), "firstName")
+            .addColumn(Messages.student_surname.getCapitalized(), "surname")
+            .addColumn(Messages.student_email.getCapitalized(), "email")
+            .addColumn(Messages.student_phoneNumber.getCapitalized(), "phoneNumber")
+            .addColumn(Messages.student_birthDate.getCapitalized(), "birthDate")
+            .setRecordsSupplier(facade::getStudents)
             .build();
     }
 }
