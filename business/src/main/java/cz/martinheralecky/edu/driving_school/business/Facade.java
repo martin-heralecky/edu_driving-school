@@ -8,9 +8,10 @@ import java.time.LocalDate;
 import java.util.List;
 
 /**
- * Interface defining basic operations with vehicles, teachers and students.
+ * Interface defining basic operations with vehicles, teachers and students. Operations that change state notify the 
+ * registered observers.
  */
-public interface Facade {
+public interface Facade extends Observable {
     /**
      * Adds a new vehicle.
      */
