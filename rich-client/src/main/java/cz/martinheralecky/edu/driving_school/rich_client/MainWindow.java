@@ -5,6 +5,9 @@ import cz.martinheralecky.edu.driving_school.business.Observer;
 import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
 import cz.martinheralecky.edu.driving_school.model.Vehicle;
+import cz.martinheralecky.edu.driving_school.rich_client.controller.AddStudentAction;
+import cz.martinheralecky.edu.driving_school.rich_client.controller.AddTeacherAction;
+import cz.martinheralecky.edu.driving_school.rich_client.controller.AddVehicleAction;
 import cz.martinheralecky.edu.driving_school.rich_client.controller.QuitAction;
 import cz.martinheralecky.edu.driving_school.utils.Messages;
 import javafx.scene.Node;
@@ -56,7 +59,13 @@ class MainWindow extends Stage implements Observer {
         var fileMenu = new Menu(Messages.menu_file.getCapitalized());
         fileMenu.getItems().add(new ActionMenuItem(Messages.menu_file_quit.getCapitalized(), new QuitAction()));
 
-        return new MenuBar(fileMenu);
+        var dataMenu = new Menu(Messages.menu_data.getCapitalized());
+        dataMenu.getItems().addAll(
+            new ActionMenuItem(Messages.menu_data_new_vehicle.getCapitalized(), new AddVehicleAction()),
+            new ActionMenuItem(Messages.menu_data_new_teacher.getCapitalized(), new AddTeacherAction()),
+            new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction()));
+
+        return new MenuBar(fileMenu, dataMenu);
     }
 
     /**
