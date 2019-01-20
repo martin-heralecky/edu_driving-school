@@ -1,6 +1,7 @@
 package cz.martinheralecky.edu.driving_school.rich_client;
 
 import cz.martinheralecky.edu.driving_school.business.Facade;
+import cz.martinheralecky.edu.driving_school.business.Observer;
 import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
 import cz.martinheralecky.edu.driving_school.model.Vehicle;
@@ -17,7 +18,7 @@ import org.osgi.framework.FrameworkUtil;
 /**
  * The main window of the application.
  */
-class MainWindow extends Stage {
+class MainWindow extends Stage implements Observer {
     /**
      * The facade service.
      */
@@ -31,6 +32,8 @@ class MainWindow extends Stage {
         var bundleContext = FrameworkUtil.getBundle(MainWindow.class).getBundleContext();
         var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
         facade = bundleContext.getService(facadeServiceRef);
+
+        facade.addObserver(this);
 
         vehiclesPane = createVehiclesPane();
         teachersPane = createTeachersPane();
@@ -102,5 +105,22 @@ class MainWindow extends Stage {
             .addColumn(Messages.student_birthDate.getCapitalized(), "birthDate")
             .setRecordsSupplier(facade::getStudents)
             .build();
+    }
+
+    /**
+     * Reacts to the change of state from {@link Facade}.
+     */
+    @Override
+    public void update() {
+        refresh();
+    }
+
+    /**
+     * Refreshes the data in the entity panes.
+     */
+    private void refresh() {
+        vehiclesPane.refresh();
+        teachersPane.refresh();
+        studentsPane.refresh();
     }
 }
