@@ -23,14 +23,22 @@ class MainWindow extends Stage {
      */
     private Facade facade;
 
+    private EntityPane<Vehicle> vehiclesPane;
+    private EntityPane<Teacher> teachersPane;
+    private EntityPane<Student> studentsPane;
+
     MainWindow() {
         var bundleContext = FrameworkUtil.getBundle(MainWindow.class).getBundleContext();
         var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
         facade = bundleContext.getService(facadeServiceRef);
 
+        vehiclesPane = createVehiclesPane();
+        teachersPane = createTeachersPane();
+        studentsPane = createStudentsPane();
+
         setTitle(Messages.app_name.getCapitalized());
 
-        var root = new VBox(createMenuBar(), createVehiclesPane(), createTeachersPane(), createStudentsPane());
+        var root = new VBox(createMenuBar(), vehiclesPane, teachersPane, studentsPane);
 
         var scene = new Scene(root, 800, 600);
         setScene(scene);
@@ -51,7 +59,7 @@ class MainWindow extends Stage {
     /**
      * Creates a pane for vehicles.
      */
-    private Node createVehiclesPane() {
+    private EntityPane<Vehicle> createVehiclesPane() {
         return new EntityPane.Builder<Vehicle>()
             .setTitle(Messages.vehicles.getCapitalized())
             .addColumn(Messages.vehicle_id.getCapitalized(), "ID")
@@ -67,7 +75,7 @@ class MainWindow extends Stage {
     /**
      * Creates a pane for teachers.
      */
-    private Node createTeachersPane() {
+    private EntityPane<Teacher> createTeachersPane() {
         return new EntityPane.Builder<Teacher>()
             .setTitle(Messages.teachers.getCapitalized())
             .addColumn(Messages.teacher_id.getCapitalized(), "ID")
@@ -83,7 +91,7 @@ class MainWindow extends Stage {
     /**
      * Creates a pane for students.
      */
-    private Node createStudentsPane() {
+    private EntityPane<Student> createStudentsPane() {
         return new EntityPane.Builder<Student>()
             .setTitle(Messages.students.getCapitalized())
             .addColumn(Messages.student_id.getCapitalized(), "ID")
