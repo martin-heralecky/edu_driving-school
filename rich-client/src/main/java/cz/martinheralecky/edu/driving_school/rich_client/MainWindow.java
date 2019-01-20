@@ -14,6 +14,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.osgi.framework.FrameworkUtil;
@@ -63,7 +64,9 @@ class MainWindow extends Stage implements Observer {
         dataMenu.getItems().addAll(
             new ActionMenuItem(Messages.menu_data_new_vehicle.getCapitalized(), new AddVehicleAction()),
             new ActionMenuItem(Messages.menu_data_new_teacher.getCapitalized(), new AddTeacherAction()),
-            new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction()));
+            new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction()),
+            new SeparatorMenuItem(),
+            new ActionMenuItem(Messages.menu_data_refresh.getCapitalized(), this::refresh));
 
         return new MenuBar(fileMenu, dataMenu);
     }
