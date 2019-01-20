@@ -84,6 +84,7 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.vehicle_year.getCapitalized(), "year")
             .addColumn(Messages.vehicle_color.getCapitalized(), "color")
             .setRecordsSupplier(facade::getVehicles)
+            .setOnDeleteRequest(this::deleteSelectedVehicles)
             .build();
     }
 
@@ -100,6 +101,7 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.teacher_phoneNumber.getCapitalized(), "phoneNumber")
             .addColumn(Messages.teacher_birthDate.getCapitalized(), "birthDate")
             .setRecordsSupplier(facade::getTeachers)
+            .setOnDeleteRequest(this::deleteSelectedTeachers)
             .build();
     }
 
@@ -116,6 +118,7 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.student_phoneNumber.getCapitalized(), "phoneNumber")
             .addColumn(Messages.student_birthDate.getCapitalized(), "birthDate")
             .setRecordsSupplier(facade::getStudents)
+            .setOnDeleteRequest(this::deleteSelectedStudents)
             .build();
     }
 
@@ -134,5 +137,41 @@ class MainWindow extends Stage implements Observer {
         vehiclesPane.refresh();
         teachersPane.refresh();
         studentsPane.refresh();
+    }
+
+    /**
+     * Deletes the currently selected vehicles.
+     */
+    private void deleteSelectedVehicles() {
+        // prevent calling refresh() for each record
+        facade.removeObserver(this);
+        vehiclesPane.getSelected().forEach(vehicle -> facade.deleteVehicle(vehicle.getID()));
+        facade.addObserver(this);
+
+        refresh();
+    }
+
+    /**
+     * Deletes the currently selected teachers.
+     */
+    private void deleteSelectedTeachers() {
+        // prevent calling refresh() for each record
+        facade.removeObserver(this);
+        teachersPane.getSelected().forEach(teacher -> facade.deleteTeacher(teacher.getID()));
+        facade.addObserver(this);
+
+        refresh();
+    }
+
+    /**
+     * Deletes the currently selected students.
+     */
+    private void deleteSelectedStudents() {
+        // prevent calling refresh() for each record
+        facade.removeObserver(this);
+        studentsPane.getSelected().forEach(student -> facade.deleteStudent(student.getID()));
+        facade.addObserver(this);
+
+        refresh();
     }
 }
