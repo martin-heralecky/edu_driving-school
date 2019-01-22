@@ -4,5 +4,6 @@
 /utils/target/
 /model/target/
 /integration/target/
+/integration-nonpersistent/target/
 /business/target/
 /rich-client/target/
