@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="business" />
         <module name="integration" />
+        <module name="integration-nonpersistent" />
         <module name="model" />
         <module name="rich-client" />
         <module name="utils" />
