@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
 import java.util.List;
@@ -108,6 +109,19 @@ class EntityPane<T> extends TitledPane {
          */
         Builder<T> setRecordsSupplier(Supplier<List<T>> supplier) {
             pane.recordsSupplier = supplier;
+
+            return this;
+        }
+
+        /**
+         * Sets the action that is called when user requests to delete a record.
+         */
+        Builder<T> setOnDeleteRequest(Runnable action) {
+            pane.setOnKeyPressed(event -> {
+                if (event.getCode().equals(KeyCode.DELETE)) {
+                    action.run();
+                }
+            });
 
             return this;
         }
