@@ -1,6 +1,5 @@
 package cz.martinheralecky.edu.driving_school.integration.impl;
 
-import cz.martinheralecky.edu.driving_school.integration.VehicleDAO;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -9,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class VehicleDAOMapTest {
     @Test
     void createGetAllDeleteWorkCorrectly() {
-        var dao = VehicleDAO.getInstance();
+        var dao = new VehicleDAOMap();
 
         dao.create("1A2 345", "Opel", "Astra", 2000, "black");
         assertEquals(1, dao.getAll().size());

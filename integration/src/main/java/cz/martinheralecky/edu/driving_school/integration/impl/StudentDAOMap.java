@@ -2,6 +2,7 @@ package cz.martinheralecky.edu.driving_school.integration.impl;
 
 import cz.martinheralecky.edu.driving_school.integration.StudentDAO;
 import cz.martinheralecky.edu.driving_school.model.Student;
+import org.osgi.service.component.annotations.Component;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,7 +13,8 @@ import java.util.TreeMap;
 /**
  * {@link StudentDAO} implementation which uses a Map to store entities and is non-persistent.
  */
-public class StudentDAOMap extends StudentDAO {
+@Component
+public class StudentDAOMap implements StudentDAO {
     /**
      * Value of an ID of a new entity. Increments every time a new entity is stored.
      */

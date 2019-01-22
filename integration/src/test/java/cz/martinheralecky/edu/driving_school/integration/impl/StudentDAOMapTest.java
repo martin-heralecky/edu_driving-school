@@ -1,6 +1,5 @@
 package cz.martinheralecky.edu.driving_school.integration.impl;
 
-import cz.martinheralecky.edu.driving_school.integration.StudentDAO;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 class StudentDAOMapTest {
     @Test
     void createGetAllDeleteWorkCorrectly() {
-        var dao = StudentDAO.getInstance();
+        var dao = new StudentDAOMap();
 
         dao.create("Josef", "Novák", "josef.novak@gmail.com", "+420 123 456 789", LocalDate.of(1985, 4, 25));
         assertEquals(1, dao.getAll().size());
