@@ -36,6 +36,7 @@
         <module>integration</module>
         <module>integration-nonpersistent</module>
         <module>business</module>
+        <module>protocol</module>
         <module>rich-client</module>
     </modules>
 
