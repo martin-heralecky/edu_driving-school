@@ -38,6 +38,7 @@
         <module>business</module>
         <module>protocol</module>
         <module>rich-client</module>
+        <module>dispatcher</module>
     </modules>
 
     <build>

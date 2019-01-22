@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="business" />
+        <module name="dispatcher" />
         <module name="integration" />
         <module name="integration-nonpersistent" />
         <module name="model" />
