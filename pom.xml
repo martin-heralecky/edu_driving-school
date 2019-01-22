@@ -27,6 +27,7 @@
     <modules>
         <module>utils</module>
         <module>model</module>
+        <module>integration</module>
     </modules>
 
     <build>
