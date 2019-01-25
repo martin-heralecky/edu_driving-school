@@ -11,15 +11,18 @@ public interface VehicleDAO {
     /**
      * Stores a new vehicle entity.
      */
-    void create(String licensePlate, String make, String model, int year, String color);
+    void create(String licensePlate, String make, String model, int year, String color)
+        throws Exception;
 
     /**
      * Retrieves all stored vehicle entities.
      */
-    List<Vehicle> getAll();
+    List<Vehicle> getAll()
+        throws Exception;
 
     /**
      * Deletes a vehicle entity identified by its ID from the storage.
      */
-    void delete(Vehicle.ID id);
+    void delete(Vehicle.ID id)
+        throws Exception;
 }
