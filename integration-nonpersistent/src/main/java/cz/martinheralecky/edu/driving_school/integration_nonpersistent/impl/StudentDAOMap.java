@@ -1,4 +1,4 @@
-package cz.martinheralecky.edu.driving_school.integration.impl;
+package cz.martinheralecky.edu.driving_school.integration_nonpersistent.impl;
 
 import cz.martinheralecky.edu.driving_school.integration.StudentDAO;
 import cz.martinheralecky.edu.driving_school.model.Student;
