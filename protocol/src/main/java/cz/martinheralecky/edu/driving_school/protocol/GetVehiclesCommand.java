@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class GetVehiclesCommand extends FacadeCommand<List<Vehicle>> {
     @Override
-    public List<Vehicle> execute() {
+    public List<Vehicle> execute()
+        throws Exception {
         return facade.getVehicles();
     }
 }

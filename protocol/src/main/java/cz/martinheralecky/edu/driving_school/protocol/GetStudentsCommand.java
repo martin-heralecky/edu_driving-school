@@ -9,7 +9,8 @@ import java.util.List;
  */
 public class GetStudentsCommand extends FacadeCommand<List<Student>> {
     @Override
-    public List<Student> execute() {
+    public List<Student> execute()
+        throws Exception {
         return facade.getStudents();
     }
 }

@@ -19,7 +19,8 @@ public class AddStudentCommand extends FacadeCommand<Void> {
     }
 
     @Override
-    public Void execute() {
+    public Void execute()
+        throws Exception {
         facade.addStudent(
             student.getFirstName(),
             student.getSurname(),

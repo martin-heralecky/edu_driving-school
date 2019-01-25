@@ -19,7 +19,8 @@ public class AddVehicleCommand extends FacadeCommand<Void> {
     }
 
     @Override
-    public Void execute() {
+    public Void execute()
+        throws Exception {
         facade.addVehicle(
             vehicle.getLicensePlate(),
             vehicle.getMake(),

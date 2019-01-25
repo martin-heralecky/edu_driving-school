@@ -11,5 +11,6 @@ public interface Command<T> extends Serializable {
     /**
      * Executes the command and returns the result.
      */
-    T execute();
+    T execute()
+        throws Exception;
 }
