@@ -39,6 +39,7 @@
         <module>protocol</module>
         <module>rich-client</module>
         <module>dispatcher</module>
+        <module>facade-proxy</module>
     </modules>
 
     <build>

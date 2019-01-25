@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="business" />
         <module name="dispatcher" />
+        <module name="facade-proxy" />
         <module name="integration" />
         <module name="integration-nonpersistent" />
         <module name="model" />
