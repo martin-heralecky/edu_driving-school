@@ -22,7 +22,8 @@ public class AddVehicleAction implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute()
+        throws Exception {
         var dialog = new FormDialog.Builder()
             .addField(VehicleProperty.LICENSE_PLATE, Messages.vehicle_licensePlate.getCapitalized())
             .addField(VehicleProperty.MAKE, Messages.vehicle_make.getCapitalized())
@@ -33,16 +34,14 @@ public class AddVehicleAction implements Action {
 
         var dialogRes = dialog.showAndWait();
 
-        dialogRes.ifPresent(buttonType -> {
-            if (buttonType.equals(ButtonType.OK)) {
-                facade.addVehicle(
-                    dialog.getFieldValue(VehicleProperty.LICENSE_PLATE).trim(),
-                    dialog.getFieldValue(VehicleProperty.MAKE).trim(),
-                    dialog.getFieldValue(VehicleProperty.MODEL).trim(),
-                    Integer.parseInt(dialog.getFieldValue(VehicleProperty.YEAR)), // todo: handle non-integer value
-                    dialog.getFieldValue(VehicleProperty.COLOR).trim());
-            }
-        });
+        if (dialogRes.isPresent() && dialogRes.get().equals(ButtonType.OK)) {
+            facade.addVehicle(
+                dialog.getFieldValue(VehicleProperty.LICENSE_PLATE).trim(),
+                dialog.getFieldValue(VehicleProperty.MAKE).trim(),
+                dialog.getFieldValue(VehicleProperty.MODEL).trim(),
+                Integer.parseInt(dialog.getFieldValue(VehicleProperty.YEAR)), // todo: handle non-integer value
+                dialog.getFieldValue(VehicleProperty.COLOR).trim());
+        }
     }
 
     enum VehicleProperty {

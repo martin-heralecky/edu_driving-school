@@ -12,6 +12,7 @@ import cz.martinheralecky.edu.driving_school.rich_client.controller.QuitAction;
 import cz.martinheralecky.edu.driving_school.utils.Messages;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.SeparatorMenuItem;
@@ -145,7 +146,16 @@ class MainWindow extends Stage implements Observer {
     private void deleteSelectedVehicles() {
         // prevent calling refresh() for each record
         facade.removeObserver(this);
-        vehiclesPane.getSelected().forEach(vehicle -> facade.deleteVehicle(vehicle.getID()));
+
+        for (var vehicle : vehiclesPane.getSelected()) {
+            try {
+                facade.deleteVehicle(vehicle.getID());
+            } catch (Exception ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+                break;
+            }
+        }
+
         facade.addObserver(this);
 
         refresh();
@@ -157,7 +167,16 @@ class MainWindow extends Stage implements Observer {
     private void deleteSelectedTeachers() {
         // prevent calling refresh() for each record
         facade.removeObserver(this);
-        teachersPane.getSelected().forEach(teacher -> facade.deleteTeacher(teacher.getID()));
+
+        for (var teacher : teachersPane.getSelected()) {
+            try {
+                facade.deleteTeacher(teacher.getID());
+            } catch (Exception ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+                break;
+            }
+        }
+
         facade.addObserver(this);
 
         refresh();
@@ -169,7 +188,16 @@ class MainWindow extends Stage implements Observer {
     private void deleteSelectedStudents() {
         // prevent calling refresh() for each record
         facade.removeObserver(this);
-        studentsPane.getSelected().forEach(student -> facade.deleteStudent(student.getID()));
+
+        for (var student : studentsPane.getSelected()) {
+            try {
+                facade.deleteStudent(student.getID());
+            } catch (Exception ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+                break;
+            }
+        }
+
         facade.addObserver(this);
 
         refresh();

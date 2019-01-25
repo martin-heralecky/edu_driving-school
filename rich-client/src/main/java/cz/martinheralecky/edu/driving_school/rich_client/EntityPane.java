@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
 import java.util.List;
-import java.util.function.Supplier;
+import java.util.concurrent.Callable;
 
 /**
  * Pane containing records of an entity.
@@ -24,7 +24,7 @@ class EntityPane<T> extends TitledPane {
     /**
      * Supplies the records of the entity.
      */
-    private Supplier<List<T>> recordsSupplier;
+    private Callable<List<T>> recordsSupplier;
 
     /**
      * Table as the content of the pane.
@@ -41,7 +41,14 @@ class EntityPane<T> extends TitledPane {
      * Refreshes the data in the pane using the provided records-supplier.
      */
     public void refresh() {
-        records.setAll(recordsSupplier.get());
+        List<T> newRecords = null;
+        try {
+            newRecords = recordsSupplier.call();
+        } catch (Exception ex) {
+            new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+        }
+
+        records.setAll(newRecords);
     }
 
     /**
@@ -107,8 +114,8 @@ class EntityPane<T> extends TitledPane {
          *
          * @return this {@link Builder}
          */
-        Builder<T> setRecordsSupplier(Supplier<List<T>> supplier) {
-            pane.recordsSupplier = supplier;
+        Builder<T> setRecordsSupplier(Callable<List<T>> supplierCallback) {
+            pane.recordsSupplier = supplierCallback;
 
             return this;
         }
@@ -129,7 +136,7 @@ class EntityPane<T> extends TitledPane {
         /**
          * Builds the {@link EntityPane}.
          * <p>
-         * {@link #setRecordsSupplier(Supplier)} must be called on this {@link Builder} prior to calling this method.
+         * {@link #setRecordsSupplier(Callable)} must be called on this {@link Builder} prior to calling this method.
          *
          * @return The new {@link EntityPane}.
          */

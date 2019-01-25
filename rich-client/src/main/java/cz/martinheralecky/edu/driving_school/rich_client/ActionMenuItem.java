@@ -1,6 +1,7 @@
 package cz.martinheralecky.edu.driving_school.rich_client;
 
 import cz.martinheralecky.edu.driving_school.rich_client.controller.Action;
+import javafx.scene.control.Alert;
 import javafx.scene.control.MenuItem;
 
 /**
@@ -14,6 +15,12 @@ class ActionMenuItem extends MenuItem {
     ActionMenuItem(String label, Action action) {
         super(label);
 
-        setOnAction(actionEvent -> action.execute());
+        setOnAction(actionEvent -> {
+            try {
+                action.execute();
+            } catch (Exception ex) {
+                new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+            }
+        });
     }
 }

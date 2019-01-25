@@ -24,7 +24,8 @@ public class AddStudentAction implements Action {
     }
 
     @Override
-    public void execute() {
+    public void execute()
+        throws Exception {
         var dialog = new FormDialog.Builder()
             .addField(StudentProperty.FIRST_NAME, Messages.student_firstName.getCapitalized())
             .addField(StudentProperty.SURNAME, Messages.student_surname.getCapitalized())
@@ -35,16 +36,14 @@ public class AddStudentAction implements Action {
 
         var dialogRes = dialog.showAndWait();
 
-        dialogRes.ifPresent(buttonType -> {
-            if (buttonType.equals(ButtonType.OK)) {
-                facade.addStudent(
-                    dialog.getFieldValue(StudentProperty.FIRST_NAME).trim(),
-                    dialog.getFieldValue(StudentProperty.SURNAME).trim(),
-                    dialog.getFieldValue(StudentProperty.EMAIL).trim(),
-                    dialog.getFieldValue(StudentProperty.PHONE_NUMBER).trim(),
-                    LocalDate.parse(dialog.getFieldValue(StudentProperty.BIRTH_DATE))); // todo: handle invalid value
-            }
-        });
+        if (dialogRes.isPresent() && dialogRes.get().equals(ButtonType.OK)) {
+            facade.addStudent(
+                dialog.getFieldValue(StudentProperty.FIRST_NAME).trim(),
+                dialog.getFieldValue(StudentProperty.SURNAME).trim(),
+                dialog.getFieldValue(StudentProperty.EMAIL).trim(),
+                dialog.getFieldValue(StudentProperty.PHONE_NUMBER).trim(),
+                LocalDate.parse(dialog.getFieldValue(StudentProperty.BIRTH_DATE))); // todo: handle invalid value
+        }
     }
 
     enum StudentProperty {
