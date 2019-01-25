@@ -36,9 +36,9 @@ public class DispatcherDefault implements Dispatcher {
     }
 
     @Override
-    public <T, R> R send(Command<T> command) throws IOException {
+    public <T> T send(Command<T> command) throws Exception {
         if (socket == null) {
-            throw new IOException("Connection is not active.");
+            throw new RuntimeException("Connection is not active.");
         }
 
         try {
@@ -47,9 +47,13 @@ public class DispatcherDefault implements Dispatcher {
 
             Object result = ois.readObject();
 
-            return (R) result;
+            if (result instanceof Exception) {
+                throw (Exception) result;
+            }
+
+            return (T) result;
         } catch (IOException ex) {
-            LOG.log(Level.SEVERE, "Could not communicate with the server.", ex);
+            LOG.log(Level.SEVERE, "Error while communicating with the server.", ex);
             throw ex;
         } catch (ClassNotFoundException ex) {
             throw new RuntimeException(ex);

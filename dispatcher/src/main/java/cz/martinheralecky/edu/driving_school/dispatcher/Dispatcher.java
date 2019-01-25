@@ -17,5 +17,5 @@ public interface Dispatcher {
      * Sends a {@link Command} to the server and returns the received result. The connection has to be established
      * via {@link Dispatcher#connect(String, int)} prior to calling this method.
      */
-    <T, R> R send(Command<T> command) throws IOException;
+    <T> T send(Command<T> command) throws Exception;
 }
