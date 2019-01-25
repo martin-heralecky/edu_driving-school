@@ -7,3 +7,5 @@
 /integration-nonpersistent/target/
 /business/target/
 /rich-client/target/
+/protocol/target/
+/dispatcher/target/
