@@ -25,8 +25,15 @@ public class ClientTask implements Runnable {
 
     @Override
     public void run() {
+        LOG.info("ClientTask starting execution.");
+
         try {
-            while (true) {
+            while (!Thread.interrupted()) {
+                if (ois.available() == 0) {
+                    Thread.sleep(1000);
+                    continue;
+                }
+
                 var command = (Command) ois.readObject();
 
                 Object result;
@@ -42,6 +49,10 @@ public class ClientTask implements Runnable {
             }
         } catch (IOException | ClassNotFoundException ex) {
             LOG.log(Level.SEVERE, "Error while communicating with the client.", ex);
+        } catch (InterruptedException ex) {
+            // terminate
         }
+
+        LOG.info("ClientTask terminating.");
     }
 }
