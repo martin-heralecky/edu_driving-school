@@ -9,5 +9,5 @@
 /rich-client/target/
 /protocol/target/
 /dispatcher/target/
-/facade-proxy/target/
+/business-proxy/target/
 /server/target/

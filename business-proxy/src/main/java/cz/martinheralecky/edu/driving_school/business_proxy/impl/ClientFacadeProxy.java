@@ -1,4 +1,4 @@
-package cz.martinheralecky.edu.driving_school.facade_proxy.impl;
+package cz.martinheralecky.edu.driving_school.business_proxy.impl;
 
 import cz.martinheralecky.edu.driving_school.business.Facade;
 import cz.martinheralecky.edu.driving_school.business.Observer;

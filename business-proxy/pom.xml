@@ -9,7 +9,7 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>facade-proxy</artifactId>
+    <artifactId>business-proxy</artifactId>
     <packaging>bundle</packaging>
 
     <dependencies>
@@ -46,7 +46,7 @@
                 <configuration>
                     <instructions>
                         <Bundle-Activator>
-                            cz.martinheralecky.edu.driving_school.facade_proxy.Activator
+                            cz.martinheralecky.edu.driving_school.business_proxy.Activator
                         </Bundle-Activator>
                     </instructions>
                 </configuration>
