@@ -14,6 +14,7 @@ public enum Messages {
     menu_file,
     menu_file_quit,
     menu_data,
+    menu_data_connect,
     menu_data_new_vehicle,
     menu_data_new_student,
     menu_data_new_teacher,
@@ -44,7 +45,10 @@ public enum Messages {
     student_surname,
     student_email,
     student_phoneNumber,
-    student_birthDate;
+    student_birthDate,
+
+    connectDialog_host,
+    connectDialog_port;
 
     private static final Logger LOG = Logger.getLogger(Messages.class.getName());
 
