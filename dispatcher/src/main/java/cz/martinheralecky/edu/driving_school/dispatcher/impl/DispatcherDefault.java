@@ -27,8 +27,11 @@ public class DispatcherDefault implements Dispatcher {
         try {
             socket = new Socket(host, port);
             socket.setSoTimeout(3000);
-            ois = new ObjectInputStream(socket.getInputStream());
+
             oos = new ObjectOutputStream(socket.getOutputStream());
+            oos.flush(); // flush the header
+
+            ois = new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
             LOG.log(Level.SEVERE, "Could not connect to the server.", ex);
             throw ex;
