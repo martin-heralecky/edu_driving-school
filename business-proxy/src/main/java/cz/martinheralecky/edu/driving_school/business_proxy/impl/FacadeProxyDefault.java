@@ -2,6 +2,7 @@ package cz.martinheralecky.edu.driving_school.business_proxy.impl;
 
 import cz.martinheralecky.edu.driving_school.business.Facade;
 import cz.martinheralecky.edu.driving_school.business.Observer;
+import cz.martinheralecky.edu.driving_school.business_proxy.FacadeProxy;
 import cz.martinheralecky.edu.driving_school.dispatcher.Dispatcher;
 import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
@@ -20,7 +21,7 @@ import java.util.Set;
  * {@link Command}s.
  */
 @Component
-public class ClientFacadeProxy implements Facade {
+public class FacadeProxyDefault implements FacadeProxy {
     @Reference
     private Dispatcher dispatcher;
 
