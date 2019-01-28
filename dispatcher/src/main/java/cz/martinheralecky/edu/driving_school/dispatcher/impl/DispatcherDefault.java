@@ -24,18 +24,13 @@ public class DispatcherDefault implements Dispatcher {
 
     @Override
     public void connect(String host, int port) throws IOException {
-        try {
-            socket = new Socket(host, port);
-            socket.setSoTimeout(3000);
+        socket = new Socket(host, port);
+        socket.setSoTimeout(3000);
 
-            oos = new ObjectOutputStream(socket.getOutputStream());
-            oos.flush(); // flush the header
+        oos = new ObjectOutputStream(socket.getOutputStream());
+        oos.flush(); // flush the header
 
-            ois = new ObjectInputStream(socket.getInputStream());
-        } catch (IOException ex) {
-            LOG.log(Level.SEVERE, "Could not connect to the server.", ex);
-            throw ex;
-        }
+        ois = new ObjectInputStream(socket.getInputStream());
     }
 
     @Override
