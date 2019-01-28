@@ -19,9 +19,8 @@ public class DeleteStudentCommand extends FacadeCommand<Void> {
     }
 
     @Override
-    public Void execute()
-        throws Exception {
-        facade.deleteStudent(studentID);
+    public Void execute() throws Exception {
+        getFacade().deleteStudent(studentID);
 
         return null;
     }

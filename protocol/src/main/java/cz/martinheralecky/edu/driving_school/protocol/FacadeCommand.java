@@ -10,14 +10,18 @@ abstract class FacadeCommand<T> implements Command<T> {
     /**
      * The facade service.
      */
-    Facade facade;
+    private transient Facade facade;
 
     /**
      * Obtains the {@link Facade} service.
      */
-    FacadeCommand() {
-        var bundleContext = FrameworkUtil.getBundle(FacadeCommand.class).getBundleContext();
-        var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
-        facade = bundleContext.getService(facadeServiceRef);
+    protected Facade getFacade() {
+        if (facade == null) {
+            var bundleContext = FrameworkUtil.getBundle(FacadeCommand.class).getBundleContext();
+            var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
+            facade = bundleContext.getService(facadeServiceRef);
+        }
+
+        return facade;
     }
 }

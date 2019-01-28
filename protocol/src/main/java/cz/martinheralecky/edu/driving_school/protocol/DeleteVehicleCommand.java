@@ -19,9 +19,8 @@ public class DeleteVehicleCommand extends FacadeCommand<Void> {
     }
 
     @Override
-    public Void execute()
-        throws Exception {
-        facade.deleteVehicle(vehicleID);
+    public Void execute() throws Exception {
+        getFacade().deleteVehicle(vehicleID);
 
         return null;
     }
