@@ -7,6 +7,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Callable;
 
@@ -46,6 +47,7 @@ class EntityPane<T> extends TitledPane {
             newRecords = recordsSupplier.call();
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, ex.getMessage()).showAndWait();
+            newRecords = new ArrayList<>();
         }
 
         records.setAll(newRecords);
