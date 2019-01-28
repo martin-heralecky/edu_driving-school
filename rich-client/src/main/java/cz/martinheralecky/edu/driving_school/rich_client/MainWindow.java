@@ -2,6 +2,7 @@ package cz.martinheralecky.edu.driving_school.rich_client;
 
 import cz.martinheralecky.edu.driving_school.business.Facade;
 import cz.martinheralecky.edu.driving_school.business.Observer;
+import cz.martinheralecky.edu.driving_school.business_proxy.FacadeProxy;
 import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
 import cz.martinheralecky.edu.driving_school.model.Vehicle;
@@ -23,7 +24,7 @@ import org.osgi.framework.FrameworkUtil;
 /**
  * The main window of the application.
  */
-class MainWindow extends Stage implements Observer {
+class MainWindow extends Stage implements Observer, FacadeProvider {
     /**
      * The facade service.
      */
@@ -34,11 +35,8 @@ class MainWindow extends Stage implements Observer {
     private EntityPane<Student> studentsPane;
 
     MainWindow() {
-        var bundleContext = FrameworkUtil.getBundle(MainWindow.class).getBundleContext();
-        var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
-        facade = bundleContext.getService(facadeServiceRef);
-
-        facade.addObserver(this);
+        // Initially, we use the local facade. Later, the server connection can be configured.
+        setFacadeLocal();
 
         vehiclesPane = createVehiclesPane();
         teachersPane = createTeachersPane();
@@ -54,6 +52,28 @@ class MainWindow extends Stage implements Observer {
         show();
     }
 
+    private void setFacadeLocal() {
+        setFacade(Facade.class);
+    }
+
+    private void setFacadeProxy() {
+        setFacade(FacadeProxy.class);
+    }
+
+    private void setFacade(Class<? extends Facade> facadeClass) {
+        if (facade != null) {
+            facade.removeObserver(this);
+        }
+
+        var bundleContext = FrameworkUtil.getBundle(MainWindow.class).getBundleContext();
+        var facadeServiceRef = bundleContext.getServiceReference(facadeClass);
+        facade = bundleContext.getService(facadeServiceRef);
+
+        facade.addObserver(this);
+
+        refresh();
+    }
+
     /**
      * Creates menu bar.
      */
@@ -63,9 +83,9 @@ class MainWindow extends Stage implements Observer {
 
         var dataMenu = new Menu(Messages.menu_data.getCapitalized());
         dataMenu.getItems().addAll(
-            new ActionMenuItem(Messages.menu_data_new_vehicle.getCapitalized(), new AddVehicleAction()),
-            new ActionMenuItem(Messages.menu_data_new_teacher.getCapitalized(), new AddTeacherAction()),
-            new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction()),
+            new ActionMenuItem(Messages.menu_data_new_vehicle.getCapitalized(), new AddVehicleAction(this)),
+            new ActionMenuItem(Messages.menu_data_new_teacher.getCapitalized(), new AddTeacherAction(this)),
+            new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction(this)),
             new SeparatorMenuItem(),
             new ActionMenuItem(Messages.menu_data_refresh.getCapitalized(), this::refresh));
 
@@ -84,7 +104,7 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.vehicle_model.getCapitalized(), "model")
             .addColumn(Messages.vehicle_year.getCapitalized(), "year")
             .addColumn(Messages.vehicle_color.getCapitalized(), "color")
-            .setRecordsSupplier(facade::getVehicles)
+            .setRecordsSupplier(() -> getFacade().getVehicles())
             .setOnDeleteRequest(this::deleteSelectedVehicles)
             .build();
     }
@@ -101,7 +121,7 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.teacher_email.getCapitalized(), "email")
             .addColumn(Messages.teacher_phoneNumber.getCapitalized(), "phoneNumber")
             .addColumn(Messages.teacher_birthDate.getCapitalized(), "birthDate")
-            .setRecordsSupplier(facade::getTeachers)
+            .setRecordsSupplier(() -> getFacade().getTeachers())
             .setOnDeleteRequest(this::deleteSelectedTeachers)
             .build();
     }
@@ -118,9 +138,14 @@ class MainWindow extends Stage implements Observer {
             .addColumn(Messages.student_email.getCapitalized(), "email")
             .addColumn(Messages.student_phoneNumber.getCapitalized(), "phoneNumber")
             .addColumn(Messages.student_birthDate.getCapitalized(), "birthDate")
-            .setRecordsSupplier(facade::getStudents)
+            .setRecordsSupplier(() -> getFacade().getStudents())
             .setOnDeleteRequest(this::deleteSelectedStudents)
             .build();
+    }
+
+    @Override
+    public Facade getFacade() {
+        return facade;
     }
 
     /**
@@ -135,9 +160,11 @@ class MainWindow extends Stage implements Observer {
      * Refreshes the data in the entity panes.
      */
     private void refresh() {
-        vehiclesPane.refresh();
-        teachersPane.refresh();
-        studentsPane.refresh();
+        if (vehiclesPane != null && teachersPane != null && studentsPane != null) {
+            vehiclesPane.refresh();
+            teachersPane.refresh();
+            studentsPane.refresh();
+        }
     }
 
     /**

@@ -1,10 +1,9 @@
 package cz.martinheralecky.edu.driving_school.rich_client.controller;
 
-import cz.martinheralecky.edu.driving_school.business.Facade;
+import cz.martinheralecky.edu.driving_school.rich_client.FacadeProvider;
 import cz.martinheralecky.edu.driving_school.rich_client.FormDialog;
 import cz.martinheralecky.edu.driving_school.utils.Messages;
 import javafx.scene.control.ButtonType;
-import org.osgi.framework.FrameworkUtil;
 
 import java.time.LocalDate;
 
@@ -12,15 +11,10 @@ import java.time.LocalDate;
  * Class representing an action that asks the user for data (via {@link FormDialog}) and then adds a new teacher.
  */
 public class AddTeacherAction implements Action {
-    /**
-     * The facade service.
-     */
-    private Facade facade;
+    private final FacadeProvider facadeProvider;
 
-    public AddTeacherAction() {
-        var bundleContext = FrameworkUtil.getBundle(AddTeacherAction.class).getBundleContext();
-        var facadeServiceRef = bundleContext.getServiceReference(Facade.class);
-        facade = bundleContext.getService(facadeServiceRef);
+    public AddTeacherAction(FacadeProvider facadeProvider) {
+        this.facadeProvider = facadeProvider;
     }
 
     @Override
@@ -37,7 +31,7 @@ public class AddTeacherAction implements Action {
         var dialogRes = dialog.showAndWait();
 
         if (dialogRes.isPresent() && dialogRes.get().equals(ButtonType.OK)) {
-            facade.addTeacher(
+            facadeProvider.getFacade().addTeacher(
                 dialog.getFieldValue(TeacherProperty.FIRST_NAME).trim(),
                 dialog.getFieldValue(TeacherProperty.SURNAME).trim(),
                 dialog.getFieldValue(TeacherProperty.EMAIL).trim(),
