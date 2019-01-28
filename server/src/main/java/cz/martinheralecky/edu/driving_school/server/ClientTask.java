@@ -29,11 +29,7 @@ public class ClientTask implements Runnable {
 
         try {
             while (!Thread.interrupted()) {
-                if (ois.available() == 0) {
-                    Thread.sleep(1000);
-                    continue;
-                }
-
+                // todo: while blocked, the thread cannot be gracefully stopped
                 var command = (Command) ois.readObject();
 
                 Object result;
@@ -49,8 +45,6 @@ public class ClientTask implements Runnable {
             }
         } catch (IOException | ClassNotFoundException ex) {
             LOG.log(Level.SEVERE, "Error while communicating with the client.", ex);
-        } catch (InterruptedException ex) {
-            // terminate
         }
 
         LOG.info("ClientTask terminating.");
