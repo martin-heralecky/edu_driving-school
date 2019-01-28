@@ -11,6 +11,7 @@
         <module name="dispatcher" />
         <module name="integration" />
         <module name="integration-nonpersistent" />
+        <module name="integration-persistent" />
         <module name="model" />
         <module name="protocol" />
         <module name="rich-client" />

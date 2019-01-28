@@ -5,6 +5,7 @@
 /model/target/
 /integration/target/
 /integration-nonpersistent/target/
+/integration-persistent/target/
 /business/target/
 /rich-client/target/
 /protocol/target/

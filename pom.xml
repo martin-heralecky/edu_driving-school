@@ -41,6 +41,7 @@
         <module>dispatcher</module>
         <module>business-proxy</module>
         <module>server</module>
+        <module>integration-persistent</module>
     </modules>
 
     <build>
