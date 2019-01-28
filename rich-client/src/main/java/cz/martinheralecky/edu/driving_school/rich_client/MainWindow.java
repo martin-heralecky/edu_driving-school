@@ -6,10 +6,7 @@ import cz.martinheralecky.edu.driving_school.business_proxy.FacadeProxy;
 import cz.martinheralecky.edu.driving_school.model.Student;
 import cz.martinheralecky.edu.driving_school.model.Teacher;
 import cz.martinheralecky.edu.driving_school.model.Vehicle;
-import cz.martinheralecky.edu.driving_school.rich_client.controller.AddStudentAction;
-import cz.martinheralecky.edu.driving_school.rich_client.controller.AddTeacherAction;
-import cz.martinheralecky.edu.driving_school.rich_client.controller.AddVehicleAction;
-import cz.martinheralecky.edu.driving_school.rich_client.controller.QuitAction;
+import cz.martinheralecky.edu.driving_school.rich_client.controller.*;
 import cz.martinheralecky.edu.driving_school.utils.Messages;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -83,6 +80,8 @@ class MainWindow extends Stage implements Observer, FacadeProvider {
 
         var dataMenu = new Menu(Messages.menu_data.getCapitalized());
         dataMenu.getItems().addAll(
+            new ActionMenuItem(Messages.menu_data_connect.getCapitalized(), new ConnectAction(this::setFacadeProxy)),
+            new SeparatorMenuItem(),
             new ActionMenuItem(Messages.menu_data_new_vehicle.getCapitalized(), new AddVehicleAction(this)),
             new ActionMenuItem(Messages.menu_data_new_teacher.getCapitalized(), new AddTeacherAction(this)),
             new ActionMenuItem(Messages.menu_data_new_student.getCapitalized(), new AddStudentAction(this)),
