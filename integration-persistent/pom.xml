@@ -24,6 +24,12 @@
             <artifactId>integration</artifactId>
             <version>${project.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.13</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -36,6 +42,7 @@
                         <Bundle-Activator>
                             cz.martinheralecky.edu.driving_school.integration_persistent.Activator
                         </Bundle-Activator>
+                        <Export-Package>cz.martinheralecky.edu.driving_school.integration_persistent</Export-Package>
                     </instructions>
                 </configuration>
             </plugin>

@@ -3,6 +3,7 @@ package cz.martinheralecky.edu.driving_school.integration_persistent;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
+import java.sql.DriverManager;
 import java.util.logging.Logger;
 
 /**
@@ -14,6 +15,8 @@ public class Activator implements BundleActivator {
     @Override
     public void start(BundleContext context) throws Exception {
         LOG.info("Starting integration-persistent bundle.");
+
+        new com.mysql.cj.jdbc.Driver();
     }
 
     @Override
