@@ -1,4 +1,4 @@
-package cz.martinheralecky.edu.driving_school.integration.impl;
+package cz.martinheralecky.edu.driving_school.integration_nonpersistent.impl;
 
 import org.junit.jupiter.api.Test;
 
