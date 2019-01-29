@@ -16,6 +16,9 @@ import java.util.List;
  */
 @Component
 public class VehicleDAOMySQL implements VehicleDAO {
+    /**
+     * Provider of {@link java.sql.Connection} to the MySQL database.
+     */
     @Reference
     ConnectionProvider connProvider;
 
@@ -61,6 +64,9 @@ public class VehicleDAOMySQL implements VehicleDAO {
         stmt.execute();
     }
 
+    /**
+     * Returns an INSERT {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getInsertPs() throws SQLException {
         if (insertPs == null) {
             insertPs = connProvider.getConn().prepareStatement(
@@ -70,6 +76,9 @@ public class VehicleDAOMySQL implements VehicleDAO {
         return insertPs;
     }
 
+    /**
+     * Returns a SELECT {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getSelectPs() throws SQLException {
         if (selectPs == null) {
             selectPs = connProvider.getConn().prepareStatement(
@@ -79,6 +88,9 @@ public class VehicleDAOMySQL implements VehicleDAO {
         return selectPs;
     }
 
+    /**
+     * Returns an DELETE {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getDeletePs() throws SQLException {
         if (deletePs == null) {
             deletePs = connProvider.getConn().prepareStatement("DELETE FROM `vehicles` WHERE `id` = ?");

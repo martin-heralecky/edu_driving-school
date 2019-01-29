@@ -18,6 +18,9 @@ import java.util.List;
  */
 @Component
 public class StudentDAOMySQL implements StudentDAO {
+    /**
+     * Provider of {@link java.sql.Connection} to the MySQL database.
+     */
     @Reference
     ConnectionProvider connProvider;
 
@@ -64,6 +67,9 @@ public class StudentDAOMySQL implements StudentDAO {
         stmt.execute();
     }
 
+    /**
+     * Returns an INSERT {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getInsertPs() throws SQLException {
         if (insertPs == null) {
             insertPs = connProvider.getConn().prepareStatement(
@@ -74,6 +80,9 @@ public class StudentDAOMySQL implements StudentDAO {
         return insertPs;
     }
 
+    /**
+     * Returns a SELECT {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getSelectPs() throws SQLException {
         if (selectPs == null) {
             selectPs = connProvider.getConn().prepareStatement(
@@ -83,6 +92,9 @@ public class StudentDAOMySQL implements StudentDAO {
         return selectPs;
     }
 
+    /**
+     * Returns an DELETE {@link PreparedStatement}. If called for the first time, creates it.
+     */
     private PreparedStatement getDeletePs() throws SQLException {
         if (deletePs == null) {
             deletePs = connProvider.getConn().prepareStatement("DELETE FROM `students` WHERE `id` = ?");
